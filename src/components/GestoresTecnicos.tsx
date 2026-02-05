@@ -45,11 +45,12 @@ function GestorAvatar({ nome, fotoBase, size = "normal" }: { nome: string; fotoB
   return (
     <div className={`${sizeClasses} rounded-full bg-white/20 border-4 border-accent overflow-hidden flex items-center justify-center transition-all duration-500`}>
       <picture>
-        <source srcSet={`${fotoBase}.png`} type="image/png" />
+        <source srcSet={`${fotoBase}.jpeg`} type="image/jpeg" />
         <source srcSet={`${fotoBase}.jpg`} type="image/jpeg" />
+        <source srcSet={`${fotoBase}.png`} type="image/png" />
         <source srcSet={`${fotoBase}.svg`} type="image/svg+xml" />
         <img
-          src={`${fotoBase}.png`}
+          src={`${fotoBase}.jpeg`}
           alt={nome}
           className="w-full h-full object-cover"
           onError={(e) => {
