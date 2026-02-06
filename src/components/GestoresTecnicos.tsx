@@ -142,10 +142,10 @@ export function GestoresTecnicos() {
           )}
 
           {/* Grid de gestores */}
-          <div className={`grid transition-all duration-700 ease-in-out ${
+          <div className={`transition-all duration-700 ease-in-out ${
             selectedGestor === null 
-              ? 'md:grid-cols-2 gap-8 md:gap-16' 
-              : 'grid-cols-1'
+              ? 'grid md:grid-cols-2 gap-8 md:gap-16' 
+              : 'block'
           }`}>
             {gestores.map((gestor, index) => {
               const isSelected = selectedGestor === index;
@@ -157,7 +157,7 @@ export function GestoresTecnicos() {
                   className={`transition-all duration-700 ease-in-out ${
                     isHidden 
                       ? 'opacity-0 scale-75 absolute pointer-events-none' 
-                      : 'opacity-100 scale-100 relative'
+                      : 'opacity-100 scale-100 relative w-full'
                   }`}
                 >
                   {/* Estado compacto - clicável */}
@@ -181,7 +181,7 @@ export function GestoresTecnicos() {
 
                   {/* Estado expandido */}
                   {isSelected && (
-                    <div className="animate-fadeIn">
+                    <div className="animate-fadeIn max-w-6xl mx-auto">
                       {/* Botão voltar */}
                       <button
                         onClick={() => setSelectedGestor(null)}

@@ -4,10 +4,15 @@ export function Hero() {
       id="hero"
       className="relative bg-primary min-h-screen flex items-center pt-28"
     >
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(190,26,135,0.3),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.1),transparent_40%)]" />
+      {/* Background pattern - Branded SVG */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img 
+          src="/hero-bg-brand.svg" 
+          alt="Conexus Tech Background" 
+          className="w-full h-full object-cover opacity-60 mix-blend-screen"
+        />
+        {/* Overlay para garantir leitura */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-primary/30" />
       </div>
 
       <div className="section-container relative z-10">

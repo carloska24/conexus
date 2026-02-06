@@ -115,6 +115,25 @@ export function ModeloConsultoria() {
     };
   }, [isHovering, activeStep, isMounted]);
 
+  // Click Outside para fechar modal
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        setActiveStep(null);
+      }
+    };
+
+    if (activeStep !== null) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeStep]);
+
   // Função para calcular posição orbital
   const getPosition = (index: number, total: number, radius: number) => {
     const angle = ((index * (360 / total)) + rotation) * (Math.PI / 180);
@@ -231,7 +250,10 @@ export function ModeloConsultoria() {
                         left: `calc(50% + ${pos.x}px)`,
                         top: `calc(50% + ${pos.y}px)`,
                       }}
-                      onClick={() => setActiveStep(index)}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Impede toggle imediato pelo listener global
+                        setActiveStep(isActive ? null : index);
+                      }}
                       onMouseEnter={() => setIsHovering(true)}
                       onMouseLeave={() => setIsHovering(false)}
                     >
@@ -253,21 +275,22 @@ export function ModeloConsultoria() {
           <AnimatePresence>
             {activeStep !== null && (
               <motion.div
+                ref={modalRef}
                 initial={{ opacity: 0, scale: 0.9, y: -20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: -20 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className={`absolute w-80 bg-slate-900/95 backdrop-blur-2xl rounded-2xl shadow-[0_0_60px_rgba(0,0,0,0.7)] border border-white/10 p-6 z-50
                   ${getPosition(activeStep, etapas.length, 250).x > 0 
-                    ? 'right-[calc(50%+160px)] mr-10' 
-                    : 'left-[calc(50%+160px)] ml-10'
+                    ? 'left-[calc(50%+160px)] ml-10' 
+                    : 'right-[calc(50%+160px)] mr-10'
                   }
                 `}
                 // FIX CRÍTICO: Removido 'top: 50%'. Agora usa top fixo relativo ao container para garantir visibilidade superior
                 style={{ top: '15%' }} 
               >
                 {/* Indicador de Conexão (Seta) */}
-                <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-900 border-t border-r border-white/10 rotate-45 ${getPosition(activeStep, etapas.length, 250).x > 0 ? '-right-2.5 border-t-white/10 border-r-white/10 border-b-0 border-l-0' : '-left-2.5 border-b-0 border-l-white/10 border-t-0 border-r-0 rotate-[225deg]'}`} />
+                <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-900 border-t border-r border-white/10 rotate-45 ${getPosition(activeStep, etapas.length, 250).x > 0 ? '-left-2.5 border-b-0 border-l-white/10 border-t-0 border-r-0 rotate-[225deg]' : '-right-2.5 border-t-white/10 border-r-white/10 border-b-0 border-l-0'}`} />
 
                 <div className="flex justify-between items-start mb-6 border-b border-white/5 pb-4">
                   <span className="text-accent/20 font-heading font-bold text-6xl absolute -top-2 -right-2 pointer-events-none select-none">
