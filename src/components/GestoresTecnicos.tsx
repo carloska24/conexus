@@ -171,7 +171,11 @@ export function GestoresTecnicos() {
                       </div>
                       <h3 className="heading-3 text-white group-hover:text-accent transition-colors">{gestor.nome}</h3>
                       <p className="text-accent font-medium text-sm mb-2">{gestor.experiencia}</p>
-                      <p className="text-white/60 text-sm">Clique para ver mais</p>
+                      <div className="mt-4">
+                        <span className="text-xs font-bold text-accent border border-accent/40 rounded-full px-4 py-1.5 group-hover:bg-accent group-hover:text-white transition-all duration-300 uppercase tracking-wide">
+                          Ver perfil completo
+                        </span>
+                      </div>
                     </div>
                   )}
 

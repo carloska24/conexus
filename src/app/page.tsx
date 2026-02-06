@@ -5,6 +5,7 @@ import { Atuacao } from "@/components/Atuacao";
 import { GestoresTecnicos } from "@/components/GestoresTecnicos";
 import { ModeloConsultoria } from "@/components/ModeloConsultoria";
 import { EmpresasParceiras } from "@/components/EmpresasParceiras";
+import { FAQ } from "@/components/FAQ";
 import { Contato } from "@/components/Contato";
 import { Footer } from "@/components/Footer";
 
@@ -19,6 +20,7 @@ export default function Home() {
         <GestoresTecnicos />
         <ModeloConsultoria />
         <EmpresasParceiras />
+        <FAQ />
         <Contato />
       </main>
       <Footer />

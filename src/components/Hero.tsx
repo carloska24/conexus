@@ -2,7 +2,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative bg-primary min-h-screen flex items-center pt-20"
+      className="relative bg-primary min-h-screen flex items-center pt-28"
     >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -14,6 +14,14 @@ export function Hero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Conteúdo textual */}
           <div className="text-white">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="bg-accent/20 text-accent px-3 py-1 rounded-full text-sm font-medium">
+                +30 projetos entregues
+              </span>
+              <span className="bg-white/10 text-white/80 px-3 py-1 rounded-full text-sm font-medium">
+                +15 anos de experiência
+              </span>
+            </div>
             <h1 className="heading-1 text-white mb-4">
               Conectando empresas,
             </h1>
@@ -26,9 +34,9 @@ export function Hero() {
               em uma única frente de trabalho.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
               <a href="#contato" className="btn-primary">
-                Fale com um gestor técnico
+                Solicite um diagnóstico gratuito
               </a>
               <a
                 href="#quem-somos"
@@ -37,6 +45,10 @@ export function Hero() {
                 Conheça nossa atuação
               </a>
             </div>
+            
+            <p className="text-sm text-white/50">
+              ⚡ Atendimento personalizado · Resposta em até 24h
+            </p>
           </div>
 
           {/* Logo / Ilustração */}
@@ -49,7 +61,7 @@ export function Hero() {
                 viewBox="0 0 300 200"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="opacity-90"
+                className="opacity-90 animate-pulse duration-[3000ms]"
               >
                 {/* Elo esquerdo (azul/cinza) */}
                 <path
@@ -71,23 +83,6 @@ export function Hero() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 animate-bounce hidden md:block">
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
       </div>
     </section>
   );
