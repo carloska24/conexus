@@ -82,7 +82,10 @@ export function GestoresTecnicos() {
     <section id="gestores" className="section-padding bg-primary overflow-hidden">
       <div className="section-container">
         {/* Título */}
-        <h2 className="heading-2 text-white text-center mb-16">Gestores Técnicos</h2>
+        {/* Título - Reduz margem quando expandido para subir o conteúdo */}
+        <h2 className={`heading-2 text-white text-center transition-all duration-500 ${selectedGestor !== null ? 'mb-4' : 'mb-16'}`}>
+          Gestores Técnicos
+        </h2>
 
         {/* Container principal */}
         <div className="relative">
@@ -185,7 +188,7 @@ export function GestoresTecnicos() {
                       {/* Botão voltar */}
                       <button
                         onClick={() => setSelectedGestor(null)}
-                        className="flex items-center gap-2 text-white/70 hover:text-accent mb-8 transition-colors"
+                        className="flex items-center gap-2 text-white/70 hover:text-accent mb-4 transition-colors"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

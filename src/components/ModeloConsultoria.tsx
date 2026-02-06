@@ -143,7 +143,7 @@ export function ModeloConsultoria() {
   };
 
   return (
-    <section id="modelo" className="pt-28 pb-40 bg-slate-900 overflow-visible relative text-white min-h-screen flex flex-col">
+    <section id="modelo" className="pt-12 md:pt-14 pb-24 bg-slate-900 overflow-visible relative text-white min-h-screen flex flex-col snap-start">
       {/* Background Tech - Gradiente e Grid */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-slate-950 opacity-100" />
       <div className="absolute inset-0 opacity-[0.03]" 
@@ -151,7 +151,7 @@ export function ModeloConsultoria() {
       />
       
       <div className="section-container relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="heading-2 text-white mb-4">Modelo de Consultoria</h2>
           <p className="text-slate-300 max-w-2xl mx-auto text-lg font-light">
             Um ecossistema integrado onde cada etapa gira em torno do sucesso do seu produto.
@@ -162,7 +162,7 @@ export function ModeloConsultoria() {
         </div>
 
         {/* Layout Desktop (Orbital Tech) */}
-        <div className="hidden lg:flex justify-center items-center h-[700px] relative -mt-32">
+        <div className="hidden lg:flex justify-center items-center h-[700px] relative -mt-16">
           
           {/* 1. Anéis de Energia (SVG p/ Brilho Real - Visibilidade Aumentada) */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -257,6 +257,11 @@ export function ModeloConsultoria() {
                       onMouseEnter={() => setIsHovering(true)}
                       onMouseLeave={() => setIsHovering(false)}
                     >
+                      {/* Badge Numérico (Azul Marinho) - Nova Adição */}
+                      <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-blue-900 border border-white/20 flex items-center justify-center shadow-lg z-30">
+                        <span className="text-[10px] font-bold text-white">{etapa.numero}</span>
+                      </div>
+
                       <etapa.icon className={`w-7 h-7 ${isActive ? 'text-white' : 'currentColor'}`} strokeWidth={1.5} />
                       
                       <div className={`absolute ${pos.y > 0 ? 'top-20' : '-top-12'} w-auto whitespace-nowrap text-center pointer-events-none transition-all duration-300 ${isActive || isHovering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>

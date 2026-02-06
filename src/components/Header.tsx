@@ -66,6 +66,12 @@ export function Header() {
             >
               Modelo
             </a>
+            <a
+              href="#parceiros"
+              className="font-body text-base font-medium text-gray-700 hover:text-primary transition-colors hover:bg-gray-50 px-3 py-2 rounded-lg"
+            >
+              Parceiros
+            </a>
           </nav>
 
           {/* CTA Header */}
@@ -138,6 +144,13 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Modelo
+              </a>
+              <a
+                href="#parceiros"
+                className="font-body text-gray-700 hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Parceiros
               </a>
               <a
                 href="#contato"
