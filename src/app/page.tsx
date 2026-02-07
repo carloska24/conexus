@@ -14,9 +14,8 @@ export default function Home() {
   // Carrega mídia dinâmica das pastas públicas
   const customMedia = {
     'ICAPE Group': getPartnerMedia('icape'),
-    // Possibilidade de escalar para outros parceiros apenas criando as pastas
-    // 'CADService': getPartnerMedia('cadservice'), 
-    // 'FITec': getPartnerMedia('fitec'),
+    'CADService': getPartnerMedia('cadservice'), 
+    'FITec': getPartnerMedia('fitec'),
   };
 
   return (
