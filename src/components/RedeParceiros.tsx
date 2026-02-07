@@ -13,9 +13,9 @@ const parceiros: PartnerData[] = [
     cor: "#e11d48", // Rose-600
     especialidades: ["Manufatura SMT de Alta Precisão", "Montagem PTH Robusta", "Testes Funcionais & ICT", "Gestão de Supply Chain"],
     destaques: ["Parque fabril com tecnologia de ponta", "Certificação ISO 9001 e 13485 (Médico)", "Rastreabilidade completa de processo"],
-    imagens: [
-       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000", // Placeholder SMT
-       "https://images.unsplash.com/photo-1563770095-39d468a92305?auto=format&fit=crop&q=80&w=1000"  // Placeholder Lab
+    galeria: [
+       { type: 'image', url: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" }, // Placeholder SMT
+       { type: 'image', url: "https://images.unsplash.com/photo-1563770095-39d468a92305?auto=format&fit=crop&q=80&w=1000" }  // Placeholder Lab
     ],
     sobre: "Com mais de 30 anos de mercado, a CADService é referência em serviços de manufatura eletrônica. Sua estrutura permite atender desde prototipagem rápida até produção em larga escala com flexibilidade e rigoroso controle de qualidade. A empresa atua como uma extensão da fábrica do cliente, gerenciando compra de materiais, montagem de placas (PCBA) e integração final de produtos (box build), atendendo setores críticos como médico, militar e automotivo."
   },
@@ -27,9 +27,10 @@ const parceiros: PartnerData[] = [
     cor: "#0ea5e9", // Sky-500
     especialidades: ["PCB Multilayer & HDI", "Flex & Rigid-Flex", "Peças Técnicas Customizadas", "Auditoria de Fábricas"],
     destaques: ["Presença em mais de 70 países", "Laboratório próprio de controle de qualidade", "Soluções logísticas globais (DDP, CIP)"],
-    imagens: [
-       "https://images.unsplash.com/photo-1598132846985-oec1c2017c67?auto=format&fit=crop&q=80&w=1000", // PCB
-       "https://images.unsplash.com/photo-1623945417478-43d9646c0397?auto=format&fit=crop&q=80&w=1000"  // Global Logistics
+    galeria: [
+       { type: 'video', url: "/videos/icape/video1.mp4" }, // VÍDEO NOVO
+       { type: 'image', url: "https://images.unsplash.com/photo-1598132846985-oec1c2017c67?auto=format&fit=crop&q=80&w=1000" }, // PCB
+       { type: 'image', url: "https://images.unsplash.com/photo-1623945417478-43d9646c0397?auto=format&fit=crop&q=80&w=1000" }  // Global Logistics
     ],
     sobre: "O ICAPE Group é um dos maiores players mundiais na distribuição de circuitos impressos e peças técnicas. Com uma abordagem focada em qualidade e otimização de custos, o grupo atua como um hub estratégico, selecionando a melhor fábrica para cada tipo de tecnologia demandada. Seus engenheiros auditam constantemente os parceiros asiáticos e europeus, garantindo que o produto entregue cumpra as mais rigorosas normas internacionais."
   },
@@ -41,9 +42,9 @@ const parceiros: PartnerData[] = [
     cor: "#8b5cf6", // Violet-500
     especialidades: ["Pesquisa & Desenvolvimento (P&D)", "Lei da Informática", "Certificação de Produtos", "IoT & Indústria 4.0"],
     destaques: ["Acreditação CATI/MCTI", "Equipe de Mestres e Doutores", "Laboratórios de ensaios creditados"],
-    imagens: [
-       "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000", // Innovation
-       "https://images.unsplash.com/photo-1581093458891-953b6aa3776e?auto=format&fit=crop&q=80&w=1000"  // Lab Work
+    galeria: [
+       { type: 'image', url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000" }, // Innovation
+       { type: 'image', url: "https://images.unsplash.com/photo-1581093458891-953b6aa3776e?auto=format&fit=crop&q=80&w=1000" }  // Lab Work
     ],
     sobre: "A FITec (Fundação para Inovações Tecnológicas) é um centro de excelência em P&D credenciado pelo Ministério da Ciência, Tecnologia e Inovações (MCTI). Atua no desenvolvimento de novas tecnologias, permitindo que empresas parceiras usufruam dos benefícios da Lei de Informática. Com corpo técnico altamente qualificado, a FITec entrega desde a concepção e design de produtos até a validação e certificação, cobrindo todo o ciclo de vida da inovação."
   },

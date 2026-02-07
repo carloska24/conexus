@@ -1,6 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ExternalLink, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { X, ExternalLink, ChevronLeft, ChevronRight, CheckCircle2, PlayCircle } from "lucide-react";
 import { useState, useEffect } from "react";
+
+export type MediaType = 'image' | 'video';
+
+export interface MediaItem {
+  type: MediaType;
+  url: string;
+  thumbnail?: string; // Opcional para vídeos
+}
 
 export interface PartnerData {
   nome: string;
@@ -10,8 +18,8 @@ export interface PartnerData {
   cor: string;
   especialidades: string[];
   destaques: string[];
-  imagens: string[]; // URLs para o carrossel
-  sobre: string; // Texto longo detalhado
+  galeria: MediaItem[]; // Renomeado de 'imagens' para 'galeria' para suportar mixed media
+  sobre: string;
 }
 
 interface PartnerModalProps {
@@ -21,11 +29,11 @@ interface PartnerModalProps {
 }
 
 export function PartnerModal({ partner, isOpen, onClose }: PartnerModalProps) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Reset image index when modal opens/changes partner
+  // Reset index when modal opens/changes partner
   useEffect(() => {
-    if (isOpen) setCurrentImageIndex(0);
+    if (isOpen) setCurrentIndex(0);
   }, [isOpen, partner]);
 
   // Lock body scroll when modal is open
@@ -40,15 +48,15 @@ export function PartnerModal({ partner, isOpen, onClose }: PartnerModalProps) {
     };
   }, [isOpen]);
 
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === partner.imagens.length - 1 ? 0 : prev + 1
+  const nextSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === partner.galeria.length - 1 ? 0 : prev + 1
     );
   };
 
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? partner.imagens.length - 1 : prev - 1
+  const prevSlide = () => {
+    setCurrentIndex((prev) => 
+      prev === 0 ? partner.galeria.length - 1 : prev - 1
     );
   };
 
@@ -100,7 +108,7 @@ export function PartnerModal({ partner, isOpen, onClose }: PartnerModalProps) {
                 <div className="grid lg:grid-cols-12 gap-8 p-6 md:p-8">
                   
                   {/* Coluna Esquerda: Informações (7 cols) */}
-                  <div className="lg:col-span-7 space-y-8">
+                  <div className="lg:col-span-7 space-y-8 order-2 lg:order-1">
                     
                     {/* Sobre */}
                     <div>
@@ -141,51 +149,75 @@ export function PartnerModal({ partner, isOpen, onClose }: PartnerModalProps) {
                   </div>
 
                   {/* Coluna Direita: Galeria e CTA (5 cols) */}
-                  <div className="lg:col-span-5 flex flex-col gap-6">
+                  <div className="lg:col-span-5 flex flex-col gap-6 order-1 lg:order-2">
                     
-                    {/* Carrossel de Imagens */}
-                    {partner.imagens.length > 0 ? (
+                    {/* Carrossel de Mídia (Imagens/Vídeos) */}
+                    {partner.galeria.length > 0 ? (
                       <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black group">
+                        
                         <AnimatePresence mode="wait">
-                          <motion.img 
-                            key={currentImageIndex}
-                            src={partner.imagens[currentImageIndex]}
-                            alt={`Galeria ${partner.nome} ${currentImageIndex + 1}`}
+                          <motion.div
+                            key={currentIndex}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="w-full h-full object-cover"
-                          />
+                            className="w-full h-full flex items-center justify-center bg-black"
+                          >
+                            {partner.galeria[currentIndex].type === 'video' ? (
+                              <video 
+                                src={partner.galeria[currentIndex].url}
+                                controls
+                                className="w-full h-full object-contain"
+                                poster={partner.galeria[currentIndex].thumbnail}
+                              >
+                                Seu navegador não suporta vídeos.
+                              </video>
+                            ) : (
+                              <img 
+                                src={partner.galeria[currentIndex].url}
+                                alt={`Galeria ${partner.nome} ${currentIndex + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            )}
+                          </motion.div>
                         </AnimatePresence>
                         
-                        {/* Overlay Gradient */}
+                        {/* Overlay Gradient (apenas se não for vídeo ou controles on hover) */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
-                        {/* Controles */}
+                        {/* Controles de Navegação */}
                         <div className="absolute bottom-4 right-4 flex gap-2 z-10">
-                          <button onClick={prevImage} className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm transition-colors border border-white/10">
+                          <button onClick={prevSlide} className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm transition-colors border border-white/10">
                             <ChevronLeft size={20} />
                           </button>
-                          <button onClick={nextImage} className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm transition-colors border border-white/10">
+                          <button onClick={nextSlide} className="p-2 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-sm transition-colors border border-white/10">
                              <ChevronRight size={20} />
                           </button>
                         </div>
                         
                         {/* Indicadores */}
                         <div className="absolute bottom-4 left-4 flex gap-1.5 z-10">
-                          {partner.imagens.map((_, idx) => (
+                          {partner.galeria.map((item, idx) => (
                             <button
                               key={idx}
-                              onClick={() => setCurrentImageIndex(idx)}
-                              className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-accent w-6' : 'bg-white/50 hover:bg-white'}`}
-                            />
+                              onClick={() => setCurrentIndex(idx)}
+                              className={`w-2 h-2 rounded-full transition-all flex items-center justify-center ${idx === currentIndex ? 'bg-accent w-6' : 'bg-white/50 hover:bg-white'}`}
+                            >
+                               {/* Indicador visual se for vídeo (opcional, muito pequeno para ícone) */}
+                            </button>
                           ))}
                         </div>
+
+                        {/* Type Indicator Badge (Video/Image) */}
+                        <div className="absolute top-4 right-4 px-2 py-1 rounded-md bg-black/60 backdrop-blur-sm text-[10px] font-bold uppercase text-white/80 border border-white/10 pointer-events-none">
+                          {partner.galeria[currentIndex].type === 'video' ? 'Vídeo' : 'Imagem'}
+                        </div>
+
                       </div>
                     ) : (
                       <div className="aspect-video rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                        <span className="text-slate-500">Sem imagens disponíveis</span>
+                        <span className="text-slate-500">Sem mídia disponível</span>
                       </div>
                     )}
 
