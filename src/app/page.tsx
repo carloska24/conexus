@@ -8,8 +8,17 @@ import { RedeParceiros } from "@/components/RedeParceiros";
 import { FAQ } from "@/components/FAQ";
 import { Contato } from "@/components/Contato";
 import { Footer } from "@/components/Footer";
+import { getPartnerMedia } from "@/lib/get-media";
 
 export default function Home() {
+  // Carrega mídia dinâmica das pastas públicas
+  const customMedia = {
+    'ICAPE Group': getPartnerMedia('icape'),
+    // Possibilidade de escalar para outros parceiros apenas criando as pastas
+    // 'CADService': getPartnerMedia('cadservice'), 
+    // 'FITec': getPartnerMedia('fitec'),
+  };
+
   return (
     <>
       <Header />
@@ -19,7 +28,7 @@ export default function Home() {
         <Atuacao />
         <GestoresTecnicos />
         <ModeloConsultoria />
-        <RedeParceiros />
+        <RedeParceiros dynamicMedia={customMedia} />
         <FAQ />
         <Contato />
       </main>

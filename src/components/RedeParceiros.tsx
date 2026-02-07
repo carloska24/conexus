@@ -50,9 +50,26 @@ const parceiros: PartnerData[] = [
   },
 ];
 
-export function RedeParceiros() {
+import { MediaItem as ComponentMediaItem } from "./PartnerModal";
+
+// ... (static data definition remains here) ...
+
+interface RedeParceirosProps {
+  dynamicMedia?: Record<string, ComponentMediaItem[]>;
+}
+
+export function RedeParceiros({ dynamicMedia = {} }: RedeParceirosProps) {
   const [activePartnerIndex, setActivePartnerIndex] = useState<number | null>(null);
   const [hoveredPartner, setHoveredPartner] = useState<number | null>(null);
+
+  // Merge static data with dynamic media
+  const mergedParceiros = parceiros.map(p => {
+    const dynamic = dynamicMedia[p.nome];
+    if (dynamic && dynamic.length > 0) {
+      return { ...p, galeria: dynamic };
+    }
+    return p;
+  });
 
   const getPosition = (index: number, total: number, radius: number) => {
     const angle = (index * (360 / total) - 90) * (Math.PI / 180);
@@ -64,6 +81,7 @@ export function RedeParceiros() {
 
   return (
     <section id="parceiros" className="relative h-screen max-h-screen bg-[#0B1120] overflow-hidden flex flex-col items-center justify-start pt-4 md:pt-8 snap-start">
+
       {/* Background Ambience */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e293b_0%,_#0B1120_100%)] opacity-40" />
       <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -108,8 +126,8 @@ export function RedeParceiros() {
 
             {/* Orbitais (Parceiros) */}
             <AnimatePresence>
-              {parceiros.map((parceiro, index) => {
-                const pos = getPosition(index, parceiros.length, 220);
+              {mergedParceiros.map((parceiro, index) => {
+                const pos = getPosition(index, mergedParceiros.length, 220);
                 const isHovered = hoveredPartner === index;
 
                 return (
@@ -178,7 +196,7 @@ export function RedeParceiros() {
 
       {/* INTEGRAÇÃO DO MODAL */}
       <PartnerModal 
-        partner={activePartnerIndex !== null ? parceiros[activePartnerIndex] : parceiros[0]} 
+        partner={activePartnerIndex !== null ? mergedParceiros[activePartnerIndex] : mergedParceiros[0]} 
         isOpen={activePartnerIndex !== null} 
         onClose={() => setActivePartnerIndex(null)} 
       />
