@@ -1,79 +1,108 @@
-# 📖 Guia de Criação de Conteúdo - Blog Conexus
+# 📖 Manual Premium: Criação de Conteúdo - Blog Conexus
 
-Este guia explica o passo a passo para você criar e publicar novos artigos no seu blog com a estrutura correta para garantir performance, SEO e visual premium.
-
----
-
-## 1. Localização e Formato do Arquivo
-
-- **Onde salvar:** Os arquivos devem ser criados na pasta: `src/content/blog/`
-- **Extensão:** Utilize sempre a extensão `.mdx`
-- **Nome do arquivo (Slug):** O nome do arquivo será a URL do seu post. Use letras minúsculas e hífens.
-  - Exemplo: `tendencias-eletronica-2026.mdx` -> renderiza em `conexus.com.br/blog/tendencias-eletronica-2026`
+Este guia técnico e estratégico foi desenvolvido para garantir que o **Blog Conexus** mantenha sua autoridade visual e performance de elite. Siga estas diretrizes para publicar artigos que se integrem perfeitamente ao novo design executivo.
 
 ---
 
-## 2. Estrutura do Cabeçalho (Frontmatter)
+## 🏗️ Estrutura do Ecossistema
 
-Todo artigo **deve** começar com um bloco entre três hífens (`---`). É aqui que o site busca as informações da página.
+O blog utiliza um sistema de **Static Site Generation (SSG)** e **Filtros em Tempo Real**.
+
+> [!NOTE]
+> Você não precisa mexer em nada no código para que um novo post apareça. Basta salvar o arquivo `.mdx` no local correto e o sistema se encarrega da renderização e do SEO.
+
+### O Fluxo da Informação:
+
+1. **Escrita**: Você cria um arquivo em `src/content/blog/meu-post.mdx`.
+2. **Processamento**: O sistema lê o cabeçalho (_Frontmatter_) para montar os cards de Destaque e Filtros.
+3. **Publicação**: No ambiente de produção, o post aparece instantaneamente após a build. No seu `dev`, ele aparece assim que você salva.
+
+---
+
+## 📋 Anatomia do Arquivo `.mdx`
+
+Todo arquivo deve conter o cabeçalho de metadados entre linhas `---`.
 
 ```markdown
 ---
-title: "Título Impactante do Seu Artigo"
+title: "Título Executivo do Artigo"
 date: "2026-02-07"
-category: "Tecnologia"
-author: "Nome do Autor"
-image: "/images/blog/nome-da-sua-imagem.png"
-excerpt: "Um resumo curto (2 linhas) que aparece no card da página inicial do blog."
+category: "Inovação"
+author: "Nome do Especialista"
+image: "/images/blog/foto-artigo.png"
+excerpt: "Um resumo provocativo que convida o leitor para a jornada técnica."
 ---
+
+Aqui começa o seu conteúdo em Markdown...
 ```
 
-### Campos obrigatórios:
+### 💎 Regras de Ouro dos Campos:
 
-- **title:** O título principal que aparece no topo.
-- **date:** No formato `AAAA-MM-DD`.
-- **category:** Ex: "Inovação", "Indústria 4.0", "Cases".
-- **author:** Nome de quem escreveu.
-- **image:** Caminho da imagem. **Atenção:** Salve suas imagens em `/public/images/blog/`.
-- **excerpt:** O texto "isca" para atrair o leitor na lista de posts.
+- **Título:** Use sentenças afirmativas e curtas.
+- **Categoria:** Escolha palavras únicas (Ex: `Manufatura`, `Indústria 4.0`). Elas aparecerão automaticamente na **Barra de Conhecimento**.
+- **Imagem:** Use o formato **16:9** (Ex: 1920x1080px). Imagens de alta resolução são essenciais para o **Artigo em Destaque**.
+- **Excerpt:** Pense nisso como a "capa do livro". Use tom executive.
 
 ---
 
-## 3. Formatação do Conteúdo (Markdown)
+## 🎨 Formatação Visual Premium
 
-Logo após o segundo `---`, você começa a escrever seu texto.
+Para que seu texto "brilhe" no tema dark da Conexus, utilize os seguintes padrões:
 
-### Títulos
+### 1. Sistema de Brilho (Destaques)
 
-Use `#` para títulos. (Dica: o título principal já é o `title` do cabeçalho, então use apenas `##` e `###` no corpo do texto).
+Use `**termo técnico**` para palavras que você quer que saltem aos olhos.
+
+> [!TIP]
+> O nosso sistema aplica um efeito de `brightness-125` no negrito, fazendo com que os termos técnicos pareçam retroiluminados contra o fundo escuro.
+
+### 2. Cabeçalhos de Seção
+
+Evite o título de nível 1 (#) no corpo, pois o sistema já usa o título do cabeçalho.
+
+- Use `## Subtítulo` para grandes seções.
+- Use `### Tópico` para detalhamentos internos.
+
+### 3. Citações de Autoridade
+
+Para enfatizar uma visão estratégica ou frase de impacto:
 
 ```markdown
-## Subtítulo de Seção
-
-### Detalhamento Interno
-```
-
-### Ênfase e Listas
-
-- **Negrito:** Use `**texto**` para destacar palavras-chave (elas terão brilho especial no nosso tema).
-- **Listas:** Use `-` ou `1.` para listas. Elas já estão configuradas com as "bolinhas" na cor da marca.
-
-### Citações (Blockquotes)
-
-Para frases de efeito ou depoimentos:
-
-```markdown
-> "A inovação é o que distingue um líder de um seguidor."
+> "A conectividade profunda é o sistema operacional da nova indústria."
 ```
 
 ---
 
-## 4. Dicas de Ouro para Lançamento
+## 🖼️ Gerenciamento de Imagens
 
-1. **Imagens:** Use imagens horizontais (aspect ratio 16:9). Elas ficam mais bonitas no layout.
-2. **SEO:** Use palavras-chave importantes nos primeiros dois parágrafos.
-3. **Pausas:** Não escreva blocos de texto muito grandes. Use subtítulos para "quebrar" a leitura e deixá-la menos cansativa.
+> [!IMPORTANT]
+> **Qualidade é soberana.** Imagens embaçadas ou com baixa resolução comprometem a percepção de valor da marca Conexus.
+
+1. **Local:** Salve as imagens em `public/images/blog/`.
+2. **Nomenclatura:** Evite espaços. Use `imagem-do-meu-post.png` em vez de `imagem do meu post.png`.
+3. **Otimização:** O sistema já aplica `quality={100}` e filtros de nitidez via CSS, mas a imagem original deve ser nítida.
+
+### Visualização Projetada:
+
+```text
++---------------------------------------+
+|        [ IMAGEM HERO 16:9 ]           | <-- Alta Definição
++---------------------------------------+
+|  [ CATEGORIA ]  [ DATA ]  [ LEITURA ] |
++---------------------------------------+
+|          TÍTULO DO ARTIGO             |
++---------------------------------------+
+|  Texto fluído com negritos que brilham|
++---------------------------------------+
+```
 
 ---
 
-**Pronto!** Agora você tem total autonomia para escalar sua comunicação. 🚀📡
+## 🚀 Checklist de Lançamento
+
+- [ ] O arquivo termina em `.mdx`?
+- [ ] O nome do arquivo não tem espaços (Ex: `meu-artigo-tecnico.mdx`)?
+- [ ] A categoria está escrita exatamente como você quer que apareça no filtro?
+- [ ] A imagem está na pasta `public/images/blog/`?
+
+**Parabéns!** O seu ecossistema Conexus está pronto para receber seu conhecimento.

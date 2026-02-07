@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PartnerModal, PartnerData } from "./PartnerModal";
 import { PartnerApplicationModal } from "./PartnerApplicationModal";
+import { Globe } from "./Globe";
 
 const parceiros: PartnerData[] = [
   {
@@ -60,12 +61,24 @@ interface RedeParceirosProps {
   dynamicMedia?: Record<string, ComponentMediaItem[]>;
   partnerLogos?: Record<string, string | undefined>;
   backgroundImage?: string;
+  backgroundVideo?: string;
 }
 
-export function RedeParceiros({ dynamicMedia = {}, partnerLogos = {}, backgroundImage }: RedeParceirosProps) {
+export function RedeParceiros({ 
+  dynamicMedia = {}, 
+  partnerLogos = {}, 
+  backgroundImage,
+  backgroundVideo 
+}: RedeParceirosProps) {
   const [activePartnerIndex, setActivePartnerIndex] = useState<number | null>(null);
   const [hoveredPartner, setHoveredPartner] = useState<number | null>(null);
   const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+  const [rotationOffset, setRotationOffset] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Merge static data with dynamic media and logos
   const mergedParceiros = parceiros.map(p => {
@@ -79,8 +92,9 @@ export function RedeParceiros({ dynamicMedia = {}, partnerLogos = {}, background
     };
   });
 
-  const getPosition = (index: number, total: number, radius: number) => {
-    const angle = (index * (360 / total) - 90) * (Math.PI / 180);
+  const getPosition = (index: number, total: number, radius: number, offset: number = 0) => {
+    // Adiciona o offset ao índice para rotacionar os slots
+    const angle = ((index + offset) * (360 / total) - 90) * (Math.PI / 180);
     return {
       x: Math.cos(angle) * radius,
       y: Math.sin(angle) * radius,
@@ -90,18 +104,28 @@ export function RedeParceiros({ dynamicMedia = {}, partnerLogos = {}, background
   return (
     <section id="parceiros" className="relative h-screen max-h-screen bg-[#0B1120] overflow-hidden flex flex-col items-center justify-start pt-4 md:pt-8 snap-start">
 
-      {/* Background Hero Image (Se existir) */}
-      {backgroundImage && (
-        <div className="absolute inset-0 z-0">
+      {/* Background Hero Image ou Video */}
+      <div className="absolute inset-0 z-0">
+        {isMounted && backgroundVideo ? (
+          <video
+            src={backgroundVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover opacity-100"
+          />
+        ) : backgroundImage ? (
           <img 
             src={backgroundImage} 
             alt="Background Rede de Parceiros" 
             className="w-full h-full object-cover opacity-100" 
           />
-          {/* Overlay Escuro Adicional para Contraste */}
-          <div className="absolute inset-0 bg-[#0B1120]/80 mix-blend-multiply" />
-        </div>
-      )}
+        ) : null}
+        
+        {/* Overlay Escuro Adicional para Contraste (Sempre presente sobre o fundo) */}
+        <div className="absolute inset-0 bg-[#0B1120]/80 mix-blend-multiply" />
+      </div>
 
       {/* Background Ambience e Grade - Ajustado se tiver imagem */}
       <div className={`absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e293b_0%,_#0B1120_100%)] ${backgroundImage ? 'opacity-40 mix-blend-hard-light' : 'opacity-40'}`} />
@@ -142,14 +166,21 @@ export function RedeParceiros({ dynamicMedia = {}, partnerLogos = {}, background
             
             {/* Núcleo Central: CONEXUS */}
             <motion.div 
-              className="absolute z-20 flex flex-col items-center justify-center w-32 h-32 md:w-40 md:h-40 rounded-full bg-[#0B1120] border border-white/10 shadow-[0_0_60px_rgba(190,26,135,0.15)] transition-all duration-700 cursor-default group"
+              className="absolute z-20 flex flex-col items-center justify-center w-32 h-32 md:w-40 md:h-40 rounded-full bg-transparent transition-all duration-700 cursor-default group"
               animate={hoveredPartner !== null ? { scale: 0.95, opacity: 0.8 } : { scale: 1, opacity: 1 }}
             >
               <div className="relative">
                 {/* Efeito de "Pulsação" Orgânica (Heartbeat) */}
                 <div className="absolute inset-0 animate-[ping_3s_ease-out_infinite] opacity-10 bg-accent rounded-full delay-1000" />
-                <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-accent/20 to-transparent flex items-center justify-center backdrop-blur-sm border border-accent/20">
-                  <span className="font-heading font-bold text-white tracking-widest text-xs md:text-sm">CONEXUS</span>
+                <div 
+                  onClick={() => setRotationOffset(prev => prev + 1)}
+                  className="w-24 h-24 md:w-32 md:h-32 flex items-center justify-center relative cursor-pointer group active:scale-95 transition-transform"
+                >
+                  <div className="absolute inset-0 z-10">
+                    <Globe />
+                  </div>
+                  {/* Overlay sutil para interação */}
+                  <div className="absolute inset-0 rounded-full z-20 group-hover:bg-accent/5 transition-colors duration-500" />
                 </div>
               </div>
               
@@ -163,12 +194,12 @@ export function RedeParceiros({ dynamicMedia = {}, partnerLogos = {}, background
             {/* Orbitais (Parceiros) */}
             <AnimatePresence>
               {mergedParceiros.map((parceiro, index) => {
-                const pos = getPosition(index, mergedParceiros.length, 220); // Raio da órbita
+                const pos = getPosition(index, mergedParceiros.length, 220, rotationOffset); // Inclui offset
                 const isHovered = hoveredPartner === index;
 
                 return (
                   <motion.div
-                    key={index}
+                    key={parceiro.nome} // Key única para animar troca de lugar
                     className="absolute z-30"
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ 
@@ -202,7 +233,7 @@ export function RedeParceiros({ dynamicMedia = {}, partnerLogos = {}, background
                       <motion.line 
                         x1="250" y1="250" 
                         x2={250 - pos.x} y2={250 - pos.y} 
-                        stroke={isHovered ? parceiro.cor : "#BE1A87"} // Cor do parceiro ou Accent
+                        stroke={parceiro.cor} // Cor dinâmica sincronizada com o parceiro
                         strokeWidth={isHovered ? "2" : "2"}
                         strokeLinecap="round"
                         strokeDasharray="0 1" // Dasharray inicial para o pathLength funcionar
@@ -270,10 +301,10 @@ export function RedeParceiros({ dynamicMedia = {}, partnerLogos = {}, background
                         />
                       </div>
                       
-                      {/* Tagline e Nome (Aparece no Hover) - Posicionamento Dinâmico */}
+                      {/* Tagline e Nome (Aparece no Hover) - Posicionamento Dinâmico INVERTIDO (Aponta para o centro) */}
                       <div className={`absolute left-1/2 -translate-x-1/2 flex flex-col items-center whitespace-nowrap transition-all duration-300 pointer-events-none z-50 
-                        ${index === 0 ? 'top-full mt-6' : 'bottom-full mb-6'} 
-                        ${isHovered ? 'opacity-100 translate-y-0' : `opacity-0 ${index === 0 ? '-translate-y-4' : 'translate-y-4'}`}
+                        ${pos.y > 0 ? 'bottom-full mb-6' : 'top-full mt-6'} 
+                        ${isHovered ? 'opacity-100 translate-y-0' : `opacity-0 ${pos.y > 0 ? 'translate-y-4' : '-translate-y-4'}`}
                       `}>
                         {/* Nome do Parceiro - Hero Title */}
                         <span className="text-white font-heading font-bold text-xl tracking-wider mb-2 drop-shadow-lg scale-100 group-hover:scale-105 transition-transform duration-300">

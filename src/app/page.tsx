@@ -45,12 +45,21 @@ export default function Home() {
         <Atuacao />
         <GestoresTecnicos />
         <ModeloConsultoria backgroundImage={modeloBgImage} />
-        {/* Carrega background de Parceiros */}
-        <RedeParceiros 
-          dynamicMedia={customMedia} 
-          partnerLogos={partnerLogos}
-          backgroundImage={getMediaFromFolder('backgrounds/parceiros')[0]?.url} 
-        />
+        {/* Carrega background de Parceiros (Prioridade para Vídeo) */}
+        {(() => {
+          const partnerMedia = getMediaFromFolder('backgrounds/parceiros');
+          const video = partnerMedia.find(m => m.type === 'video');
+          const image = partnerMedia.find(m => m.type === 'image');
+          
+          return (
+            <RedeParceiros 
+              dynamicMedia={customMedia} 
+              partnerLogos={partnerLogos}
+              backgroundImage={image?.url}
+              backgroundVideo={video?.url}
+            />
+          );
+        })()}
         <FAQ />
         <Contato />
       </main>
