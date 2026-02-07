@@ -13,75 +13,80 @@ import {
   ChevronRight
 } from "lucide-react";
 
+// NEW TEXTS HERE
 const etapas = [
   {
     id: 0,
     numero: "01",
-    titulo: "Diagnóstico Técnico",
-    descricao: "Mapeamento aprofundado da situação atual, identificando riscos técnicos, gargalos produtivos e pontos críticos de atenção do projeto.",
+    titulo: "DIAGNÓSTICO TÉCNICO",
+    descricao: "Análise forense da engenharia atual para identificar riscos ocultos, gargalos de manufatura e conformidade normativa antes de qualquer investimento significativo.",
     icon: ClipboardList,
     detalhes: [
-      "Análise de documentação técnica",
-      "Avaliação de BOM (Bill of Materials)",
-      "Identificação de riscos de supply chain",
-      "Relatório de maturidade do projeto"
+      "Auditoria de documentação e BOM",
+      "Análise de riscos de Supply Chain",
+      "Gap Analysis de conformidade",
+      "Relatório de maturidade técnica"
     ]
   },
   {
     id: 1,
     numero: "02",
-    titulo: "Análise de Viabilidade",
-    descricao: "Avaliação 360º da viabilidade técnica, comercial e industrial. Garantimos que o projeto pare em pé antes de grandes investimentos.",
+    titulo: "VIABILIDADE ECONÔMICA",
+    descricao: "Validação completa de custos (COGS), escalabilidade fabril e análise de retorno. Transformamos ideias técnicas em business cases sólidos e defensáveis.",
     icon: BarChart3,
     detalhes: [
-      "Estimativa de custos de produção (COGS)",
-      "Análise de escala vs. capacidade",
-      "Estudo de viabilidade econômica",
-      "Definição de target price"
+      "Estudo detalhado de COGS",
+      "Análise de Ponto de Equilíbrio",
+      "Cenários de escala produtiva",
+      "Definição de Target Price"
     ]
   },
   {
     id: 2,
     numero: "03",
-    titulo: "Estratégia de Projeto",
-    descricao: "Definição do roadmap ideal, escolha de tecnologias e parceiros. O tabuleiro do jogo é desenhado aqui para garantir o cheque-mate.",
+    titulo: "ESTRATÉGIA & NPI",
+    descricao: "Definição agnóstica de tecnologias e roadmap de NPI (New Product Introduction). Desenhamos a arquitetura mais eficiente para longevidade e certificação.",
     icon: Target,
     detalhes: [
-      "Definição de arquitetura de produto",
-      "Seleção de stack tecnológica",
-      "Planejamento de certificações",
-      "Roadmap de desenvolvimento e NPI"
+      "Arquitetura de Sistemas (Hardware/Firmware)",
+      "Seleção de Stack Tecnológico",
+      "Roadmap de Certificação (Anatel/Inmetro)",
+      "Planejamento de Ciclo de Vida"
     ]
   },
   {
     id: 3,
     numero: "04",
-    titulo: "Conexão com Parceiros",
-    descricao: "Conexão direta com os parceiros especialistas (Design Houses, CMs, Laboratórios) mais adequados para a realidade do seu projeto.",
+    titulo: "SOURCING GLOBAL",
+    descricao: "Conexão direta com ecossistema validado de Design Houses e CMs internacionais. Eliminamos intermediários e garantimos contratos blindados com SLAs definidos.",
     icon: Users2,
     detalhes: [
       "Matchmaking com parceiros homologados",
-      "Gestão de RFQs (Request for Quotation)",
-      "Negociação técnica e comercial",
-      "Definição de contratos e SLA"
+      "Gestão de RFQs (Cotações Globais)",
+      "Negociação Técnica e Comercial",
+      "Definição de Contratos e SLAs"
     ]
   },
   {
     id: 4,
     numero: "05",
-    titulo: "Acompanhamento",
-    descricao: "Nossa atuação não termina na conexão. Acompanhamos a execução técnica para garantir que a entrega final atenda aos requisitos.",
+    titulo: "GESTÃO DA EXECUÇÃO",
+    descricao: "Atuação hands-on durante todo o desenvolvimento. Atuamos como seus 'olhos técnicos' para garantir que o entregável corresponda rigorosamente às especificações.",
     icon: LineChart,
     detalhes: [
-      "Gestão de cronograma macro",
-      "Validação de entregáveis técnicos",
-      "Suporte em tomadas de decisão",
-      "Gestão de crises e riscos"
+      "Acompanhamento de Cronograma Físico",
+      "Homologação de Entregáveis",
+      "Mitigação Ativa de Riscos",
+      "Controle de Qualidade na Fonte"
     ]
   },
 ];
 
-export function ModeloConsultoria() {
+export interface ModeloConsultoriaProps {
+  backgroundImage?: string;
+}
+
+export function ModeloConsultoria({ backgroundImage }: ModeloConsultoriaProps) {
   const [activeStep, setActiveStep] = useState<number | null>(null);
   const [isHovering, setIsHovering] = useState(false);
   const [rotation, setRotation] = useState(0);
@@ -144,11 +149,24 @@ export function ModeloConsultoria() {
 
   return (
     <section id="modelo" className="pt-12 md:pt-14 pb-24 bg-slate-900 overflow-visible relative text-white min-h-screen flex flex-col snap-start">
-      {/* Background Tech - Gradiente e Grid */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-slate-950 opacity-100" />
-      <div className="absolute inset-0 opacity-[0.03]" 
-           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
-      />
+      
+      {/* Background Hero Image (Se existir) */}
+      {backgroundImage && (
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={backgroundImage} 
+            alt="Background Modelo Consultoria" 
+            className="w-full h-full object-cover opacity-100" 
+          />
+          {/* Overlay Escuro Adicional para Contraste - Reduzido */}
+          <div className="absolute inset-0 bg-slate-900/60 mix-blend-multiply" />
+        </div>
+      )}
+
+      {/* Background Tech - Gradiente e Grid (Ajustado se tiver imagem) */}
+      <div className={`absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-800 via-slate-900 to-slate-950 ${backgroundImage ? 'opacity-30 mix-blend-hard-light' : 'opacity-100'}`} />
+      
+      {/* Grid removido conforme solicitação */}
       
       <div className="section-container relative z-10">
         <div className="text-center mb-12">
@@ -291,48 +309,49 @@ export function ModeloConsultoria() {
                     : 'right-[calc(50%+160px)] mr-10'
                   }
                 `}
-                // FIX CRÍTICO: Removido 'top: 50%'. Agora usa top fixo relativo ao container para garantir visibilidade superior
                 style={{ top: '15%' }} 
               >
                 {/* Indicador de Conexão (Seta) */}
                 <div className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-900 border-t border-r border-white/10 rotate-45 ${getPosition(activeStep, etapas.length, 250).x > 0 ? '-left-2.5 border-b-0 border-l-white/10 border-t-0 border-r-0 rotate-[225deg]' : '-right-2.5 border-t-white/10 border-r-white/10 border-b-0 border-l-0'}`} />
 
-                <div className="flex justify-between items-start mb-6 border-b border-white/5 pb-4">
-                  <span className="text-accent/20 font-heading font-bold text-6xl absolute -top-2 -right-2 pointer-events-none select-none">
+                {/* Título com melhor tipografia */}
+                <div className="flex justify-between items-start mb-6 border-b border-white/10 pb-4">
+                  <span className="text-accent/10 font-heading font-bold text-7xl absolute -top-4 -right-2 pointer-events-none select-none">
                     {etapas[activeStep].numero}
                   </span>
-                  <div className="flex items-center gap-3 relative z-10">
-                    <div className="p-2 bg-accent/20 rounded-lg text-accent shadow-inner border border-accent/20">
+                  <div className="flex items-center gap-4 relative z-10 w-full pr-8">
+                    <div className="p-3 bg-accent/10 rounded-xl text-accent shadow-inner border border-accent/20 flex-shrink-0">
                       {(() => {
                         const Icon = etapas[activeStep].icon;
-                        return <Icon className="w-5 h-5" />;
+                        return <Icon className="w-6 h-6" />;
                       })()}
                     </div>
-                    <h3 className="font-heading font-bold text-lg leading-tight text-white max-w-[180px]">
+                    <h3 className="font-heading font-bold text-xl leading-none text-white tracking-wide">
                       {etapas[activeStep].titulo}
                     </h3>
                   </div>
                   <button 
                     onClick={(e) => { e.stopPropagation(); setActiveStep(null); }}
-                    className="p-1.5 hover:bg-white/10 rounded-full transition-colors z-20 text-slate-400 hover:text-white"
+                    className="p-2 -mr-2 -mt-2 hover:bg-white/10 rounded-full transition-colors z-20 text-slate-400 hover:text-white"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <p className="text-slate-300 text-sm mb-6 leading-relaxed font-light">
+                {/* Descrição com melhor contraste e tamanho */}
+                <p className="text-slate-200 text-[15px] mb-8 leading-relaxed font-normal border-l-2 border-accent/30 pl-4">
                   {etapas[activeStep].descricao}
                 </p>
 
-                <div className="space-y-2">
-                  <h4 className="text-[10px] font-bold text-accent uppercase tracking-widest mb-3 flex items-center gap-2">
-                    <span className="w-4 h-[1px] bg-accent"></span>
-                    Entregáveis
+                <div className="space-y-3">
+                  <h4 className="text-[11px] font-bold text-accent uppercase tracking-[0.2em] mb-4 flex items-center gap-3 opacity-90">
+                    <span className="w-6 h-[1px] bg-accent"></span>
+                    Entregáveis Estratégicos
                   </h4>
                   {etapas[activeStep].detalhes.map((detalhe, i) => (
-                    <div key={i} className="flex items-start gap-3 group/item p-2 rounded-lg hover:bg-white/5 transition-colors">
-                      <div className="w-1 h-1 rounded-full bg-accent mt-2 group-hover/item:scale-150 transition-transform" />
-                      <span className="text-xs text-slate-400 group-hover/item:text-slate-200 transition-colors">{detalhe}</span>
+                    <div key={i} className="flex items-center gap-3 group/item p-2.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.07] border border-white/5 transition-all w-full">
+                       <div className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_#BE1A87] group-hover/item:scale-125 transition-transform" />
+                       <span className="text-sm font-medium text-slate-300 group-hover/item:text-white transition-colors">{detalhe}</span>
                     </div>
                   ))}
                 </div>

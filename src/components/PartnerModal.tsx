@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ExternalLink, ChevronLeft, ChevronRight, CheckCircle2, PlayCircle } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -86,8 +88,8 @@ export function PartnerModal({ partner, isOpen, onClose }: PartnerModalProps) {
               {/* Header Fixo */}
               <div className="flex items-center justify-between p-6 md:p-8 border-b border-white/5 bg-[#0f1623] z-20">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center p-2">
-                    <img src={partner.logo} alt={partner.nome} className="w-full h-full object-contain" />
+                  <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden shrink-0">
+                    <img src={partner.logo} alt={partner.nome} className="w-full h-full object-contain scale-[1.6]" />
                   </div>
                   <div>
                     <h2 className="text-2xl md:text-3xl font-heading font-bold text-white">{partner.nome}</h2>
