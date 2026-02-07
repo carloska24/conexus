@@ -19,7 +19,7 @@ const parceiros: PartnerData[] = [
        { type: 'image', url: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000" }, // Placeholder SMT
        { type: 'image', url: "https://images.unsplash.com/photo-1563770095-39d468a92305?auto=format&fit=crop&q=80&w=1000" }  // Placeholder Lab
     ],
-    sobre: "Com mais de 30 anos de mercado, a CADService é referência em serviços de manufatura eletrônica. Sua estrutura permite atender desde prototipagem rápida até produção em larga escala com flexibilidade e rigoroso controle de qualidade. A empresa atua como uma extensão da fábrica do cliente, gerenciando compra de materiais, montagem de placas (PCBA) e integração final de produtos (box build), atendendo setores críticos como médico, militar e automotivo."
+    sobre: "Com mais de 30 anos de mercado, a CADService é referência em manufatura de placas eletrônicas (PCBA), especializando-se em montagem SMT e PTH, desde a prototipagem rápida até a produção seriada. A empresa atua como uma extensão estratégica da fábrica do cliente, com forte foco em qualidade, rastreabilidade total e adequação de processos conforme a criticidade de cada produto. Operando de forma integrada com o ecossistema Conexus, garantimos viabilidade produtiva, confiabilidade e máxima eficiência industrial para setores exigentes como médico, automotivo e militar."
   },
   {
     nome: "ICAPE Group",
@@ -27,14 +27,14 @@ const parceiros: PartnerData[] = [
     logo: "/parceiros/icape.svg",
     site: "https://www.icape-group.com",
     cor: "#0ea5e9", // Sky-500
-    especialidades: ["PCB Multilayer & HDI", "Flex & Rigid-Flex", "Peças Técnicas Customizadas", "Auditoria de Fábricas"],
-    destaques: ["Presença em mais de 70 países", "Laboratório próprio de controle de qualidade", "Soluções logísticas globais (DDP, CIP)"],
+    especialidades: ["Placas de Circuito Impresso (PCBs)", "Multilayer, HDI & Flex", "Soluções Especiais & Customização", "Gestão de Cadeia de Suprimentos"],
+    destaques: ["Presença em mais de 70 países", "Auditorias técnicas em fábricas globais", "Escalabilidade e segurança de fornecimento"],
     galeria: [
        { type: 'video', url: "/videos/icape/video1.mp4" }, // VÍDEO NOVO
        { type: 'image', url: "https://images.unsplash.com/photo-1598132846985-oec1c2017c67?auto=format&fit=crop&q=80&w=1000" }, // PCB
        { type: 'image', url: "https://images.unsplash.com/photo-1623945417478-43d9646c0397?auto=format&fit=crop&q=80&w=1000" }  // Global Logistics
     ],
-    sobre: "O ICAPE Group é um dos maiores players mundiais na distribuição de circuitos impressos e peças técnicas. Com uma abordagem focada em qualidade e otimização de custos, o grupo atua como um hub estratégico, selecionando a melhor fábrica para cada tipo de tecnologia demandada. Seus engenheiros auditam constantemente os parceiros asiáticos e europeus, garantindo que o produto entregue cumpra as mais rigorosas normas internacionais."
+    sobre: "O ICAPE Group é uma empresa global e um dos maiores players mundiais na fabricação e distribuição de placas de circuito impresso (PCBs) e peças técnicas eletrônicas. Atuando como um hub estratégico, o grupo abrange desde tecnologias convencionais até as mais complexas, como multilayers, HDI e soluções especiais. Sua excelência operacional foca na gestão completa da cadeia de suprimentos e na customização de componentes, oferecendo competitividade, escalabilidade e segurança de fornecimento. Através de auditorias constantes em parcerias asiáticas e europeias, garantimos que cada produto entregue cumpra as mais rigorosas normas internacionais de qualidade."
   },
   {
     nome: "FITec",
@@ -48,7 +48,7 @@ const parceiros: PartnerData[] = [
        { type: 'image', url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000" }, // Innovation
        { type: 'image', url: "https://images.unsplash.com/photo-1581093458891-953b6aa3776e?auto=format&fit=crop&q=80&w=1000" }  // Lab Work
     ],
-    sobre: "A FITec (Fundação para Inovações Tecnológicas) é um centro de excelência em P&D credenciado pelo Ministério da Ciência, Tecnologia e Inovações (MCTI). Atua no desenvolvimento de novas tecnologias, permitindo que empresas parceiras usufruam dos benefícios da Lei de Informática. Com corpo técnico altamente qualificado, a FITec entrega desde a concepção e design de produtos até a validação e certificação, cobrindo todo o ciclo de vida da inovação."
+    sobre: "A FITec (Fundação para Inovações Tecnológicas) é uma referência em engenharia e no desenvolvimento de produtos eletrônicos de alta complexidade. Como centro de excelência credenciado pelo MCTI, a fundação transforma conceitos inovadores em soluções tecnicamente robustas através de pesquisa e desenvolvimento (P&D). Sua atuação abrange todo o ciclo de vida da inovação, desde a concepção e design até a validação técnica, testes rigorosos e apoio estratégico à industrialização, permitindo que empresas usufruam dos benefícios da Lei de Informática com máxima segurança tecnológica."
   },
 ];
 

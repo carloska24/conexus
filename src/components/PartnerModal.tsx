@@ -32,10 +32,14 @@ interface PartnerModalProps {
 
 export function PartnerModal({ partner, isOpen, onClose }: PartnerModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  // Reset index when modal opens/changes partner
+  // Reset indices when modal opens/changes partner
   useEffect(() => {
-    if (isOpen) setCurrentIndex(0);
+    if (isOpen) {
+      setCurrentIndex(0);
+      setIsExpanded(false);
+    }
   }, [isOpen, partner]);
 
   // Lock body scroll when modal is open
@@ -112,15 +116,27 @@ export function PartnerModal({ partner, isOpen, onClose }: PartnerModalProps) {
                   {/* Coluna Esquerda: Informações (7 cols) */}
                   <div className="lg:col-span-7 space-y-8 order-2 lg:order-1">
                     
-                    {/* Sobre */}
+                    {/* Sobre com Ler Mais */}
                     <div>
                       <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                         <span className="w-1 h-6 bg-accent rounded-full"></span>
                         Sobre a Empresa
                       </h3>
-                      <p className="text-slate-300 leading-relaxed text-lg font-light">
-                        {partner.sobre}
-                      </p>
+                      <div className="relative">
+                        <p className={`text-slate-300 leading-relaxed text-lg font-light transition-all duration-500 overflow-hidden ${!isExpanded && partner.sobre.length > 250 ? "max-h-[140px] mask-fade-bottom" : "max-h-[1000px]"}`}>
+                          {partner.sobre}
+                        </p>
+                        
+                        {partner.sobre.length > 250 && (
+                          <button 
+                            onClick={() => setIsExpanded(!isExpanded)}
+                            className="mt-4 text-accent hover:text-white font-bold text-sm flex items-center gap-1 transition-colors group"
+                          >
+                            {isExpanded ? "Ler menos" : "Ler mais sobre a parceria..."}
+                            <ChevronRight size={16} className={`transition-transform duration-300 ${isExpanded ? "-rotate-90" : "rotate-0"}`} />
+                          </button>
+                        )}
+                      </div>
                     </div>
 
                     {/* Tags de Especialidades */}

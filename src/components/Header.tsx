@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +11,7 @@ export function Header() {
       <div className="section-container">
         <div className="flex items-center justify-between h-24 md:h-28">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-4 group">
+          <Link href="/" className="flex items-center gap-4 group">
             {/* Logo SVG */}
             <div className="relative h-14 w-14 md:h-16 md:w-16 shrink-0 transition-transform duration-300 group-hover:scale-105">
                <svg 
@@ -38,49 +39,47 @@ export function Header() {
                 <div className="w-1/2 bg-primary" />
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* Navegação Desktop */}
           <nav className="hidden md:flex items-center gap-10">
             <a
-              href="#quem-somos"
+              href="/#quem-somos"
               className="font-body text-base font-medium text-gray-700 hover:text-primary transition-colors hover:bg-gray-50 px-3 py-2 rounded-lg"
             >
               Quem Somos
             </a>
             <a
-              href="#atuacao"
+              href="/#atuacao"
               className="font-body text-base font-medium text-gray-700 hover:text-primary transition-colors hover:bg-gray-50 px-3 py-2 rounded-lg"
             >
               Atuação
             </a>
             <a
-              href="#gestores"
+              href="/#gestores"
               className="font-body text-base font-medium text-gray-700 hover:text-primary transition-colors hover:bg-gray-50 px-3 py-2 rounded-lg"
             >
               Gestores
             </a>
             <a
-              href="#modelo"
+              href="/#modelo"
               className="font-body text-base font-medium text-gray-700 hover:text-primary transition-colors hover:bg-gray-50 px-3 py-2 rounded-lg"
             >
               Modelo
             </a>
             <a
-              href="#parceiros"
+              href="/#parceiros"
               className="font-body text-base font-medium text-gray-700 hover:text-primary transition-colors hover:bg-gray-50 px-3 py-2 rounded-lg"
             >
               Parceiros
             </a>
+            <Link
+              href="/blog"
+              className="font-body text-base font-bold text-accent hover:text-accent-dark transition-colors px-3 py-2 rounded-lg bg-accent/5"
+            >
+              Blog
+            </Link>
           </nav>
-
-          {/* CTA Header */}
-          <a
-            href="#contato"
-            className="hidden md:inline-flex btn-primary text-sm"
-          >
-            Fale Conosco
-          </a>
 
           {/* Menu Mobile */}
           <button
@@ -118,47 +117,47 @@ export function Header() {
           <div className="md:hidden py-4 border-t border-gray-100">
             <nav className="flex flex-col gap-4">
               <a
-                href="#quem-somos"
+                href="/#quem-somos"
                 className="font-body text-gray-700 hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Quem Somos
               </a>
               <a
-                href="#atuacao"
+                href="/#atuacao"
                 className="font-body text-gray-700 hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Atuação
               </a>
               <a
-                href="#gestores"
+                href="/#gestores"
                 className="font-body text-gray-700 hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Gestores
               </a>
               <a
-                href="#modelo"
+                href="/#modelo"
                 className="font-body text-gray-700 hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Modelo
               </a>
               <a
-                href="#parceiros"
+                href="/#parceiros"
                 className="font-body text-gray-700 hover:text-primary transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Parceiros
               </a>
-              <a
-                href="#contato"
-                className="btn-primary text-center mt-2"
+              <Link
+                href="/blog"
+                className="font-body font-bold text-accent py-2 border-y border-gray-50"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Fale Conosco
-              </a>
+                Blog
+              </Link>
             </nav>
           </div>
         )}
