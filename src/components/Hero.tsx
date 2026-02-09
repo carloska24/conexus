@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function Hero() {
   return (
     <section
@@ -6,10 +8,12 @@ export function Hero() {
     >
       {/* Background pattern - Branded SVG */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img 
-          src="/hero-bg-brand.svg" 
-          alt="Conexus Tech Background" 
-          className="w-full h-full object-cover opacity-60 mix-blend-screen"
+        <Image
+          src="/hero-bg-brand.svg"
+          alt="Conexus Tech Background"
+          fill
+          className="object-cover opacity-60 mix-blend-screen"
+          priority
         />
         {/* Overlay para garantir leitura */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-primary/30" />

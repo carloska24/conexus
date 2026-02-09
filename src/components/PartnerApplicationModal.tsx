@@ -9,6 +9,8 @@ interface PartnerApplicationModalProps {
   onClose: () => void;
 }
 
+import { sendEmail } from "@/actions/send-email";
+
 export function PartnerApplicationModal({ isOpen, onClose }: PartnerApplicationModalProps) {
   const [formData, setFormData] = useState({
     nome: "",
@@ -40,13 +42,26 @@ export function PartnerApplicationModal({ isOpen, onClose }: PartnerApplicationM
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulação de envio para API
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log("Partner Application Data:", formData);
+    const formDataToSend = new FormData();
+    formDataToSend.append("formType", "parceiro");
+    formDataToSend.append("nome", formData.nome);
+    formDataToSend.append("cargo", formData.cargo);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("whatsapp", formData.whatsapp);
+    formDataToSend.append("empresa", formData.empresa);
+    formDataToSend.append("site", formData.site);
+    formDataToSend.append("area", formData.area);
+    formDataToSend.append("diferenciais", formData.diferenciais);
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    try {
+      await sendEmail(formDataToSend);
+      setIsSuccess(true);
+    } catch (error) {
+      console.error("Erro na candidatura:", error);
+      alert("Erro ao enviar candidatura. Tente contato direto.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;

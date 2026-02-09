@@ -5,7 +5,12 @@ import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PartnerModal, PartnerData } from "./PartnerModal";
 import { PartnerApplicationModal } from "./PartnerApplicationModal";
-import { Globe } from "./Globe";
+import dynamic from "next/dynamic";
+
+const Globe = dynamic(() => import("./Globe").then((mod) => mod.Globe), {
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-slate-900/20 rounded-full animate-pulse" />,
+});
 
 const parceiros: PartnerData[] = [
   {
@@ -78,7 +83,8 @@ export function RedeParceiros({
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    setIsMounted(true);
+  }, [backgroundVideo, backgroundImage]);
 
   // Merge static data with dynamic media and logos
   const mergedParceiros = parceiros.map(p => {
@@ -102,7 +108,7 @@ export function RedeParceiros({
   };
 
   return (
-    <section id="parceiros" className="relative h-screen max-h-screen bg-[#0B1120] overflow-hidden flex flex-col items-center justify-start pt-4 md:pt-8 snap-start">
+    <section id="parceiros" className="relative h-[90vh] bg-[#0B1120] overflow-hidden flex flex-col items-center justify-start pt-4 md:pt-8 snap-start">
 
       {/* Background Hero Image ou Video */}
       <div className="absolute inset-0 z-0">
@@ -113,48 +119,51 @@ export function RedeParceiros({
             muted
             loop
             playsInline
-            className="w-full h-full object-cover opacity-100"
+            className="w-full h-full object-cover object-center opacity-100"
           />
         ) : backgroundImage ? (
           <img 
             src={backgroundImage} 
             alt="Background Rede de Parceiros" 
-            className="w-full h-full object-cover opacity-100" 
+            className="w-full h-full object-cover object-center opacity-100" 
           />
         ) : null}
         
-        {/* Overlay Escuro Adicional para Contraste (Sempre presente sobre o fundo) */}
-        <div className="absolute inset-0 bg-[#0B1120]/80 mix-blend-multiply" />
+        {/* Overlay Escuro removido a pedido */}
+        {/* <div className="absolute inset-0 bg-[#0B1120]/80 mix-blend-multiply" /> */}
       </div>
 
-      {/* Background Ambience e Grade - Ajustado se tiver imagem */}
-      <div className={`absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e293b_0%,_#0B1120_100%)] ${backgroundImage ? 'opacity-40 mix-blend-hard-light' : 'opacity-40'}`} />
+      {/* Overlay Gradiente Superior para Legibilidade (Sem afetar o centro/baixo) */}
+      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-black/80 via-black/40 to-transparent z-0 pointer-events-none" />
+
+      {/* Background Ambience removido a pedido, mantendo apenas grid sutil */}
+      {/* <div className={`absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e293b_0%,_#0B1120_100%)] ${backgroundImage ? 'opacity-40 mix-blend-hard-light' : 'opacity-40'}`} /> */}
       <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
 
       <div className="section-container relative z-10 w-full h-full flex flex-col pt-0 pb-4">
         
         {/* Header - Introdução Contextual */}
-        <div className="w-full flex justify-center shrink-0">
+        <div className="w-full flex justify-center shrink-0 pt-4 md:pt-8">
           <motion.div 
             className="text-center max-w-3xl"
             initial={{ opacity: 1, y: 0 }}
              // Mantém o header visível mesmo com modal
             transition={{ duration: 0.5 }}
           >
-            <h2 className="heading-2 text-white mb-6">Rede de Parceiros</h2>
-            <p className="text-slate-400 text-lg font-light leading-relaxed mb-8">
-              Não somos apenas mediadores. <span className="text-slate-200 font-medium">Conectamos sua ambição</span> a quem tem o maquinário, a tecnologia e a escala para realizá-la.
+            <h2 className="heading-2 text-white mb-6 drop-shadow-xl text-4xl md:text-5xl">Rede de Parceiros</h2>
+            <p className="text-slate-100 text-lg md:text-xl font-normal leading-relaxed mb-8 drop-shadow-md">
+              Não somos apenas mediadores. <span className="text-white font-bold drop-shadow-lg">Conectamos sua ambição</span> a quem tem o maquinário, a tecnologia e a escala para realizá-la.
             </p>
 
             {/* CTA movido para o topo */}
             <div className="flex justify-center">
               <button
                 onClick={() => setIsApplicationModalOpen(true)}
-                className="group relative px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/50 rounded-full text-slate-300 hover:text-white transition-all duration-300 backdrop-blur-sm flex items-center gap-3"
+                className="group relative px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-accent/50 rounded-full text-white transition-all duration-300 backdrop-blur-md flex items-center gap-3 shadow-lg"
               >
                 <span className="absolute inset-0 rounded-full bg-accent/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <span className="relative font-medium text-sm">Sua empresa no nosso ecossistema?</span>
-                <span className="relative text-accent font-bold text-sm group-hover:translate-x-1 transition-transform">Seja um Parceiro →</span>
+                <span className="relative text-accent font-bold text-sm group-hover:translate-x-1 transition-transform drop-shadow">Seja um Parceiro →</span>
               </button>
             </div>
           </motion.div>

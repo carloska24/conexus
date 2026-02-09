@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const parceiros = [
   {
     nome: "CADService",
@@ -36,12 +38,15 @@ export function EmpresasParceiras() {
           {parceiros.map((parceiro, index) => (
             <div
               key={index}
-              className="group relative"
+              className="group relative h-14 md:h-16 w-auto"
             >
-              <img 
-                src={parceiro.logo} 
+              <Image
+                src={parceiro.logo}
                 alt={parceiro.nome}
-                className="h-14 md:h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
+                width={0}
+                height={64}
+                className="h-full w-auto grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer object-contain"
+                style={{ width: 'auto', height: '100%' }}
               />
             </div>
           ))}

@@ -48,7 +48,7 @@ const areas = [
 
 export function Atuacao() {
   return (
-    <section id="atuacao" className="section-padding bg-gray-50">
+    <section id="atuacao" className="bg-gray-50 flex flex-col justify-start pt-12 md:pt-16 pb-16 md:pb-24">
       <div className="section-container">
         {/* Cabeçalho da seção */}
         <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">

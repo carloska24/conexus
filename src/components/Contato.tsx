@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Mail, Phone, MessageSquare, ArrowRight, CheckCircle2, Building2, User } from "lucide-react";
 
+import { sendEmail } from "@/actions/send-email";
+
 export function Contato() {
   const [formData, setFormData] = useState({
     nome: "",
@@ -18,12 +20,25 @@ export function Contato() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulação de envio
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({ nome: "", empresa: "", email: "", telefone: "", mensagem: "" });
+    const formDataToSend = new FormData();
+    formDataToSend.append("formType", "contato");
+    formDataToSend.append("nome", formData.nome);
+    formDataToSend.append("empresa", formData.empresa);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("telefone", formData.telefone);
+    formDataToSend.append("mensagem", formData.mensagem);
+
+    try {
+      await sendEmail(formDataToSend);
+      // Sempre consideramos sucesso para UX, erro real é logado no server
+      setIsSubmitted(true);
+      setFormData({ nome: "", empresa: "", email: "", telefone: "", mensagem: "" });
+    } catch (error) {
+      console.error("Erro no envio:", error);
+      alert("Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente ou use o contato direto.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (

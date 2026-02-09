@@ -69,13 +69,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       <main className="flex-grow pt-32 pb-20">
         <article className="section-container max-w-4xl">
-          {/* Botão Voltar */}
+          {/* Botão Voltar Premium - CONTRASTE FORÇADO */}
           <Link 
             href="/blog" 
-            className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12 text-sm group"
+            className="inline-flex items-center gap-3 !text-white bg-white/10 hover:bg-accent border-2 border-accent/80 hover:border-accent rounded-full px-6 py-3 transition-all duration-300 mb-12 text-[11px] font-black uppercase tracking-[0.2em] group hover:shadow-[0_0_30px_rgba(190,26,135,0.6)] active:scale-95 shadow-lg"
           >
-            <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            Voltar para o Blog
+            <ChevronLeft size={20} className="text-accent group-hover:text-white group-hover:-translate-x-1 transition-all" />
+            <span className="!text-white">Voltar para o Blog</span>
           </Link>
 
           {/* Meta Information */}
@@ -155,6 +155,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               Fale com um Especialista
             </Link>
           </footer>
+
+          <div className="mt-20 text-center">
+            <Link 
+              href="/blog" 
+              className="inline-flex items-center gap-2 !text-white/80 hover:!text-accent transition-all text-[12px] font-bold uppercase tracking-[0.2em] group py-4 px-8 border border-white/10 rounded-full hover:border-accent/40 bg-white/5"
+            >
+              <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+              <span>Explorar mais artigos</span>
+            </Link>
+          </div>
         </article>
       </main>
 

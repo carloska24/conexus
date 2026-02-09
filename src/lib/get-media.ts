@@ -25,20 +25,16 @@ export function getMediaFromFolder(relativePath: string): MediaItem[] {
   const mediaItems: MediaItem[] = files
     .filter(file => /\.(mp4|webm|jpg|jpeg|png|webp|svg)$/i.test(file))
     .sort((a, b) => {
-      // Tenta ordenar numericamente se tiver números (video1, video2, foto1...)
-      const numA = parseInt(a.match(/\d+/)?.[0] || '999');
-      const numB = parseInt(b.match(/\d+/)?.[0] || '999');
-      
-      if (numA !== numB) return numA - numB;
-
-      // Se números iguais, prioriza vídeo
+      // 1. Prioridade absoluta para vídeos
       const isVideoA = /\.(mp4|webm)$/i.test(a);
       const isVideoB = /\.(mp4|webm)$/i.test(b);
       
       if (isVideoA && !isVideoB) return -1;
       if (!isVideoA && isVideoB) return 1;
 
-      return a.localeCompare(b);
+      // 2. Ordenação numérica natural para arquivos do mesmo tipo
+      // Ex: foto1, foto2, foto10 (ao invés de foto1, foto10, foto2)
+      return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
     })
     .map(file => {
       const ext = path.extname(file).toLowerCase();

@@ -11,8 +11,8 @@ function Earth() {
   const cloudsRef = useRef<THREE.Mesh>(null);
 
   const [texture, cloudsTexture] = useTexture([
-    "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg",
-    "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png"
+    "/textures/earth_atmos_2048.jpg",
+    "/textures/earth_clouds_1024.png"
   ]);
 
   useFrame((state) => {

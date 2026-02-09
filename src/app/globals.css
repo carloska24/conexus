@@ -1,26 +1,49 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  /* Cores da marca Conexus */
+  --color-primary: #051D40;
+  --color-primary-50: #E8EBF0;
+  --color-primary-100: #C5CCD9;
+  --color-primary-200: #9EABC2;
+  --color-primary-300: #7789AA;
+  --color-primary-400: #506793;
+  --color-primary-500: #051D40;
+  --color-primary-600: #041832;
+  --color-primary-700: #031224;
+  --color-primary-800: #020C16;
+  --color-primary-900: #010608;
 
-/* CSS Variables para fontes */
-:root {
-  --font-dm-sans: "DM Sans", system-ui, sans-serif;
-  --font-clear-sans:
-    "DM Sans", system-ui, sans-serif; /* Fallback para DM Sans caso Clear Sans não esteja disponível */
+  --color-accent: #BE1A87;
+  --color-accent-50: #FCE8F4;
+  --color-accent-100: #F8C6E3;
+  --color-accent-200: #F19FD0;
+  --color-accent-300: #E978BD;
+  --color-accent-400: #D449A2;
+  --color-accent-500: #BE1A87;
+  --color-accent-600: #98156C;
+  --color-accent-700: #721051;
+  --color-accent-800: #4C0B36;
+  --color-accent-900: #26051B;
+
+  /* Fontes - Fallback Seguro */
+  --font-heading: var(--font-dm-sans), system-ui, sans-serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+
+  /* Espaçamento */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
 }
 
-/* Reset e estilos base */
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* CSS Variables para fontes (Next.js font injection) */
+:root {
+  --font-dm-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-clear-sans: var(--font-dm-sans), system-ui, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 112px; /* Altura do header fixo */
+  scroll-padding-top: 112px;
 }
 
 html,
@@ -30,7 +53,7 @@ body {
 }
 
 body {
-  font-family: var(--font-clear-sans);
+  font-family: var(--font-body);
   color: #1a1a1a;
   line-height: 1.6;
   background-color: #ffffff;
@@ -41,7 +64,7 @@ a {
   text-decoration: none;
 }
 
-/* Utilitários customizados */
+
 @layer components {
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
@@ -83,6 +106,8 @@ a {
     @apply bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-200 hover:shadow-md hover:border-gray-200;
   }
 
+
+/*
   .mask-fade-bottom {
     mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   }
@@ -92,11 +117,18 @@ a {
     backface-visibility: hidden;
     transform: translateZ(0);
   }
+*/
+
 
   @keyframes globe-rotate {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(360deg); }
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
   }
+
 
   .animate-globe {
     animation: globe-rotate 15s linear infinite;
