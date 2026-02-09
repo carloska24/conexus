@@ -13,7 +13,7 @@ export function Footer() {
           
           {/* Coluna 1: Identidade e Confiança (4 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <a href="#" className="inline-block group">
+            <a href="/" className="inline-block group">
               <span className="font-heading font-bold text-3xl text-white tracking-tight group-hover:text-accent transition-colors">
                 CONEXUS
               </span>

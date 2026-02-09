@@ -11,7 +11,7 @@ export function Header() {
       <div className="section-container">
         <div className="flex items-center justify-between h-24 md:h-28">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-4 group">
+          <a href="/" className="flex items-center gap-4 group">
             {/* Logo SVG */}
             <div className="relative h-14 w-14 md:h-16 md:w-16 shrink-0 transition-transform duration-300 group-hover:scale-105">
                <svg 
@@ -39,7 +39,7 @@ export function Header() {
                 <div className="w-1/2 bg-primary" />
               </div>
             </div>
-          </Link>
+          </a>
 
           {/* Navegação Desktop */}
           <nav className="hidden md:flex items-center gap-10">
